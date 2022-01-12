@@ -1,0 +1,58 @@
+<app-toolbar text="Creer Medecin">
+  <app-toolbar-button text="Refresh" icon="refresh" (click)="refresh()"></app-toolbar-button>
+</app-toolbar>
+<br><br><br>
+
+<div class="sidebar-layout-bottom-row p-3 container-fluid">
+  <div class="row">
+    <div class="offset-xl-3 col-xl-6 col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <p>Veuillez remplir les coordonnées du médecin.</p>
+          <form #registerDoctor="ngForm" (ngSubmit)="save()" class="form-horizontal form-standard" [formGroup]="form">
+            <fieldset class="mb-3">
+              <div class="form-group">
+                <label for="firstName">Prenom</label>
+                <input type="text" class="form-control" name="firstName" formControlName="firstName"
+                  placeholder="Entrer votre Prenom.">
+              </div>
+              <div class="form-group">
+                <label for="lastName">Nom</label>
+                <input type="text" class="form-control" name="firstName" formControlName="lastName"
+                  placeholder="Entrer votre nom.">
+              </div>
+              <div class="form-group">
+                <label for="hospital">Hopital</label>
+                <ng-select name="hospitalId" formControlName="hospitalId" [items]="hospitalList" bindLabel="name"
+                  bindValue="id" placeholder="Selectionner hopital.">
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="speciality">Specialité</label>
+                <input type="text" class="form-control" name="speciality" formControlName="speciality"
+                  placeholder="Entrer votre specialité.">
+              </div>
+              <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" class="form-control" name="username" formControlName="username"
+                       placeholder="Saisissez le nom d'utilisateur du médecin.">
+              </div>
+              <div class="form-group">
+                <label for="password">Mot de Passe</label>
+                <input type="password" class="form-control" name="password" formControlName="password"
+                       placeholder="Entrez le mot de passe du médecin.">
+              </div>
+              <div *ngIf="error">
+                <p class="alert alert-danger">{{error.message}}</p>
+              </div>
+              <div class="form-group form-buttons">
+                <button class="btn btn-primary mr-2" type="submit" [disabled]="registerDoctor.invalid">Enregistrer</button>
+                <a [routerLink]="['/', 'admin', this.getAdminUsername()]" class="btn btn-secondary">Annuler</a>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

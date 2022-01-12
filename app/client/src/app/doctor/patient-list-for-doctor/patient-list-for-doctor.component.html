@@ -1,0 +1,34 @@
+<app-toolbar text="Patients">
+  <app-toolbar-button text="Refresh" icon="refresh" (click)="refresh()"></app-toolbar-button>
+</app-toolbar>
+<br><br><br>
+
+<div class="sidebar-layout-bottom-row p-3 container-fluid">
+  <p *ngIf="!patientRecordsObs$">Vous n'êtes pas autorisé à afficher les dossiers des patients.</p>
+  <ng-container *ngIf="patientRecordsObs$">
+    <p>Liste de tous les patients.</p>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+          <th *ngFor="let column of headerNames" scope="col">
+            {{column.displayName}}
+          </th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let singleRecord of patientRecordsObs$ | async">
+            <td>{{singleRecord.patientId}}</td>
+            <td>{{singleRecord.firstName}}</td>
+            <td>{{singleRecord.lastName}}</td>
+            <td>
+              <a role="button" [routerLink]="['/patient/', singleRecord.patientId]">Voir plus</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <span>Total : {{(patientRecordsObs$ | async)?.length}}</span>
+    </div>
+  </ng-container>
+</div>
